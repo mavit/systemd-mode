@@ -250,7 +250,9 @@ file, defaulting to the link under point, if any."
         (name (buffer-name)))
     (cond
      ((systemd-file-podman-p name)
-      (if sectionp systemd-podman-sections systemd-podman-directives))
+      (if sectionp
+          (append systemd-podman-sections systemd-unit-sections)
+        (append systemd-podman-directives systemd-unit-directives)))
      ((systemd-file-nspawn-p name)
       (if sectionp systemd-nspawn-sections systemd-nspawn-directives))
      ((systemd-file-network-p name)
